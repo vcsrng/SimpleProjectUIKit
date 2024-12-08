@@ -16,16 +16,16 @@
                 iPad (portait, portrait up down)
 ```
 
-Just clone and run it 🤸🏻
-
 ### How to clone
 ```
 https://github.com/vcsrng/SimpleProjectUIKit.git
 open MiniProjectUIKit.xcodeproj in clone folder (Xcode)
 ```
 
-### before run:
+### Bbefore run:
 ```
 - need to change `signin & capabilities` team
-- make sure your xcode in newest version
+- make sure your xcode in newest version 
 ```
+
+Just clone and run it 🤸🏻
