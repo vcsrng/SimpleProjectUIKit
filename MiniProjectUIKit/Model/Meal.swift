@@ -8,14 +8,13 @@
 import Foundation
 
 struct Meal: Decodable {
-    let idMeal: String
     let strMeal: String
     let strArea: String
-    let strMealThumb: String
-    let strInstructions: String
+    let strMealThumb: String?
+    let strInstructions: String?
     let strYoutube: String?
 
-    // base on APInya begini, coba di for each ga work entah kenapa T_T
+    // base on APInya begini, coba di declare dinamis ga work entah kenapa
     let strIngredient1: String?
     let strIngredient2: String?
     let strIngredient3: String?

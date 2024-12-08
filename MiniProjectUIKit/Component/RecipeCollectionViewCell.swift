@@ -36,6 +36,7 @@ class RecipeCollectionViewCell: UICollectionViewCell {
         
         // Title
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        titleLabel.textColor = .black
         titleLabel.textAlignment = .left
         
         // Area
@@ -69,21 +70,25 @@ class RecipeCollectionViewCell: UICollectionViewCell {
         contentView.layer.masksToBounds = true
 
         // Add border
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+//        contentView.layer.borderWidth = 1
+//        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        // Add color
+        contentView.layer.backgroundColor = UIColor.white.cgColor
 
         // Add shadow to the cell
-//        layer.shadowColor = UIColor.black.cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 2)
-//        layer.shadowRadius = 4
-//        layer.shadowOpacity = 0.2
-//        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 0.2
+        layer.masksToBounds = false
     }
 
     func configure(with meal: Meal) {
         titleLabel.text = meal.strMeal
         areaBadge.text = meal.strArea
-        if let url = URL(string: meal.strMealThumb) {
+
+        if let urlString = meal.strMealThumb, let url = URL(string: urlString) {
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url) {
                     DispatchQueue.main.async {
@@ -91,6 +96,8 @@ class RecipeCollectionViewCell: UICollectionViewCell {
                     }
                 }
             }
+        } else {
+            self.imageView.image = UIImage(systemName: "photo")
         }
     }
 }

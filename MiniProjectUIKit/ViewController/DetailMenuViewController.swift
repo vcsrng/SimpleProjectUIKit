@@ -22,6 +22,7 @@ class DetailMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        view.accessibilityIdentifier = "DetailMenuView" // Identifier for the detail view
         setupUI()
     }
 
@@ -30,20 +31,31 @@ class DetailMenuViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        if let url = URL(string: meal.strMealThumb) {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        imageView.image = UIImage(data: data)
-                    }
+
+        if let urlString = meal.strMealThumb, let url = URL(string: urlString) {
+            let session = URLSession.shared
+            session.dataTask(with: url) { data, _, error in
+                if let error = error {
+                    print("Failed to load image: \(error.localizedDescription)")
+                    return
                 }
-            }
+                guard let data = data, let image = UIImage(data: data) else {
+                    print("Failed to decode image data")
+                    return
+                }
+                DispatchQueue.main.async {
+                    imageView.image = image
+                }
+            }.resume()
+        } else {
+            imageView.image = UIImage(systemName: "photo")
         }
 
         // Meal Title
         let titleLabel = UILabel()
         titleLabel.text = meal.strMeal
         titleLabel.font =  UIFont.systemFont(ofSize: 24, weight: .bold)
+        titleLabel.textColor = .black
         titleLabel.textAlignment = .left
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -57,7 +69,7 @@ class DetailMenuViewController: UIViewController {
         areaBadge.clipsToBounds = true
         areaBadge.translatesAutoresizingMaskIntoConstraints = false
 
-        // Scroll View for Ingredients and Instructions
+        // Scroll View setup for below
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,11 +81,13 @@ class DetailMenuViewController: UIViewController {
         let ingredientsLabel = UILabel()
         ingredientsLabel.text = "Ingredients"
         ingredientsLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        ingredientsLabel.textColor = .black
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let ingredientsContent = UILabel()
         ingredientsContent.text = meal.ingredients.joined(separator: "\n")
         ingredientsContent.font = UIFont.systemFont(ofSize: 16)
+        ingredientsContent.textColor = .black
         ingredientsContent.numberOfLines = 0
         ingredientsContent.translatesAutoresizingMaskIntoConstraints = false
 
@@ -81,11 +95,13 @@ class DetailMenuViewController: UIViewController {
         let instructionsLabel = UILabel()
         instructionsLabel.text = "Instructions"
         instructionsLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        ingredientsLabel.textColor = .black
         instructionsLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let instructionsContent = UILabel()
         instructionsContent.text = meal.strInstructions
         instructionsContent.font = UIFont.systemFont(ofSize: 16)
+        instructionsContent.textColor = .black
         instructionsContent.numberOfLines = 0
         instructionsContent.translatesAutoresizingMaskIntoConstraints = false
 
@@ -93,11 +109,15 @@ class DetailMenuViewController: UIViewController {
         let youtubeLabel = UILabel()
         youtubeLabel.text = "Available on YouTube"
         youtubeLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        youtubeLabel.textColor = .black
         youtubeLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let youtubeButton = UIButton(type: .system)
-        youtubeButton.setTitle("Watch Tutorial", for: .normal)
-        youtubeButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        youtubeButton.setTitle("Open YouTube Tutorial", for: .normal)
+        youtubeButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        youtubeButton.backgroundColor = UIColor.red
+        youtubeButton.setTitleColor(.white, for: .normal)
+        youtubeButton.layer.cornerRadius = 8
         youtubeButton.addTarget(self, action: #selector(openYouTube), for: .touchUpInside)
         youtubeButton.translatesAutoresizingMaskIntoConstraints = false
 
@@ -116,10 +136,10 @@ class DetailMenuViewController: UIViewController {
 
         // Layout Constraints
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            imageView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.3),
 
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
