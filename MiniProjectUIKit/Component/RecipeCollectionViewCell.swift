@@ -35,7 +35,12 @@ class RecipeCollectionViewCell: UICollectionViewCell {
         imageView.sizeToFit()
         
         // Title
-        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        } else {
+            titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            
+        }
         titleLabel.textColor = .black
         titleLabel.textAlignment = .left
         

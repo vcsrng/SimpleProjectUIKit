@@ -54,7 +54,7 @@ class DetailMenuViewController: UIViewController {
         // Meal Title
         let titleLabel = UILabel()
         titleLabel.text = meal.strMeal
-        titleLabel.font =  UIFont.systemFont(ofSize: 24, weight: .bold)
+        titleLabel.font =  UIFont.systemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 32 : 24), weight: .bold)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .left
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,13 +80,13 @@ class DetailMenuViewController: UIViewController {
         // Ingredients Section
         let ingredientsLabel = UILabel()
         ingredientsLabel.text = "Ingredients"
-        ingredientsLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        ingredientsLabel.font = UIFont.boldSystemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 30 : 20))
         ingredientsLabel.textColor = .black
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let ingredientsContent = UILabel()
         ingredientsContent.text = meal.ingredients.joined(separator: "\n")
-        ingredientsContent.font = UIFont.systemFont(ofSize: 16)
+        ingredientsContent.font = UIFont.systemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 24 : 16))
         ingredientsContent.textColor = .black
         ingredientsContent.numberOfLines = 0
         ingredientsContent.translatesAutoresizingMaskIntoConstraints = false
@@ -94,13 +94,13 @@ class DetailMenuViewController: UIViewController {
         // Instructions Section
         let instructionsLabel = UILabel()
         instructionsLabel.text = "Instructions"
-        instructionsLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        instructionsLabel.font = UIFont.systemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 30 : 20), weight: .bold)
         ingredientsLabel.textColor = .black
         instructionsLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let instructionsContent = UILabel()
         instructionsContent.text = meal.strInstructions
-        instructionsContent.font = UIFont.systemFont(ofSize: 16)
+        instructionsContent.font = UIFont.systemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 24 : 16))
         instructionsContent.textColor = .black
         instructionsContent.numberOfLines = 0
         instructionsContent.translatesAutoresizingMaskIntoConstraints = false
@@ -108,16 +108,16 @@ class DetailMenuViewController: UIViewController {
         // YouTube Link Section
         let youtubeLabel = UILabel()
         youtubeLabel.text = "Available on YouTube"
-        youtubeLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        youtubeLabel.font = UIFont.boldSystemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 30 : 20))
         youtubeLabel.textColor = .black
         youtubeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let youtubeButton = UIButton(type: .system)
         youtubeButton.setTitle("Open YouTube Tutorial", for: .normal)
-        youtubeButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        youtubeButton.titleLabel?.font = UIFont.systemFont(ofSize: (UIDevice.current.userInterfaceIdiom == .pad ? 24 : 16), weight: .bold)
         youtubeButton.backgroundColor = UIColor.red
         youtubeButton.setTitleColor(.white, for: .normal)
-        youtubeButton.layer.cornerRadius = 8
+        youtubeButton.layer.cornerRadius = (UIDevice.current.userInterfaceIdiom == .pad ? 12 : 8)
         youtubeButton.addTarget(self, action: #selector(openYouTube), for: .touchUpInside)
         youtubeButton.translatesAutoresizingMaskIntoConstraints = false
 

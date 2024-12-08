@@ -276,7 +276,7 @@ class HomepageViewController: UIViewController, UISearchBarDelegate, UICollectio
     
     // MARK: - Collection View Layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width / 2) - 24
+        let width = (view.frame.width / (UIDevice.current.userInterfaceIdiom == .pad ? 3 : 2)) - 24
         let height = (view.frame.height * 0.3) - 16
         return CGSize(width: width, height: height)
     }
