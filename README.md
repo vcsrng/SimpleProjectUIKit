@@ -22,7 +22,7 @@ https://github.com/vcsrng/SimpleProjectUIKit.git
 open MiniProjectUIKit.xcodeproj in clone folder (Xcode)
 ```
 
-### Bbefore run:
+### Before run:
 ```
 - need to change `signin & capabilities` team
 - make sure your xcode in newest version 
