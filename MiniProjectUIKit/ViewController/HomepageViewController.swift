@@ -67,8 +67,8 @@ class HomepageViewController: UIViewController, UISearchBarDelegate, UICollectio
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
         
         // Gesture recognizer to dismiss keyboard
@@ -84,8 +84,8 @@ class HomepageViewController: UIViewController, UISearchBarDelegate, UICollectio
         filterScrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             filterScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
-            filterScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            filterScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            filterScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            filterScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             filterScrollView.heightAnchor.constraint(equalToConstant: 40)
         ])
         
@@ -148,6 +148,7 @@ class HomepageViewController: UIViewController, UISearchBarDelegate, UICollectio
         filterScrollView.subviews.forEach { $0.removeFromSuperview() }
         
         var xOffset: CGFloat = 0
+        xOffset += 16
         for area in areas {
             let button = UIButton(type: .system)
             button.setTitle(area, for: .normal)
@@ -162,6 +163,7 @@ class HomepageViewController: UIViewController, UISearchBarDelegate, UICollectio
             filterScrollView.addSubview(button)
             xOffset += 108
         }
+        xOffset += 8
         filterScrollView.contentSize = CGSize(width: xOffset, height: 40)
     }
     
